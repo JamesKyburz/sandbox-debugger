@@ -1,0 +1,23 @@
+{
+  "name": "sandbox-debugger-server",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jameskyburz/sandbox-debugger.git"
+  },
+  "author": {
+    "name": "james kyburz",
+    "email": "james.kyburz@gmail.com"
+  },
+  "version": "0.0.1",
+  "scripts": {
+    "missing": "npx dependency-sync --once --debug src/index.js"
+  },
+  "dependencies": {
+    "server-base": "5.0.9",
+    "ws": "6.1.0"
+  },
+  "files": [
+    "src"
+  ],
+  "license": "Apache-2.0"
+}

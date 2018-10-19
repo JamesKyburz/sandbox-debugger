@@ -1,0 +1,16 @@
+{
+  "name": "sandbox-debugger-monorepo",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jameskyburz/sandbox-debugger.git"
+  },
+  "author": {
+    "name": "james kyburz",
+    "email": "james.kyburz@gmail.com"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npx macleod exec npm test"
+  },
+  "private": true
+}
