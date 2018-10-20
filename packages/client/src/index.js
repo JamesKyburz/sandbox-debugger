@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fetch = require('node-fetch')
 const WebSocket = require('ws')
 const delay = require('delay')
