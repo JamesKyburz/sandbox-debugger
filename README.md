@@ -50,7 +50,7 @@ node index
 or
 
 ```sh
-DEBUG_PROXY=ip:port DEBUG_PID=x node -r 'sandbox-debugger'
+DEBUG_PROXY=ip:port DEBUG_PID=x npx sandbox-debugger
 ```
 
 # license
