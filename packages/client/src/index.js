@@ -17,7 +17,10 @@ if (process.env.__DEBUG__) {
     })
   } else {
     const ps = fork(__filename, {
-      env: { ...process.env, __DEBUG_PID__: process.pid }
+      env: {
+        ...process.env,
+        __DEBUG_PID__: process.env.DEBUG_PID || process.pid
+      }
     })
     ps.on('exit', () => process.exit(0))
   }

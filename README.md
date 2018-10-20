@@ -47,6 +47,12 @@ DEBUG_PROXY=ip:port # server
 node index
 ```
 
+or
+
+```sh
+DEBUG_PROXY=ip:port DEBUG_PID=x node -r 'sandbox-debugger'
+```
+
 # license
 
 [Apache License, Version 2.0](LICENSE)
