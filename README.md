@@ -26,9 +26,9 @@ docker pull jameskyburz/node-sandbox-debugger
 ```sh
 ᐅ docker run \
   --name node-sandbox-debugger \
-  -e PORT=9229
-  -e LOG_PRETTY=1
-  -p 9229:9229
+  -e PORT=9229 \
+  -e LOG_PRETTY=1 \
+  -p 9229:9229 \
   jameskyburz/node-sandbox-debugger
 ```
 
