@@ -53,12 +53,12 @@ async function startDebug () {
         process.exit(1)
       }
 
+      remote.once('close', close('remote'))
       remote.once('message', message => {
         remote.on('message', message => local.send(message))
         local.on('message', message => remote.send(message))
 
-        remote.on('close', close('remote'))
-        local.on('close', close('local'))
+        local.once('close', close('local'))
       })
 
       break
