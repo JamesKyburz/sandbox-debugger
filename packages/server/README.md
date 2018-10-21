@@ -15,7 +15,7 @@ npm start
 
 Docker images hosted at https://hub.docker.com/r/jameskyburz/node-sandbox-debugger
 
-docker pull jameskyburz/node-sandbox-debugger:0.0.1
+docker pull jameskyburz/node-sandbox-debugger
 
 # Running in docker
 
@@ -25,7 +25,7 @@ docker pull jameskyburz/node-sandbox-debugger:0.0.1
   -e PORT=9229
   -e LOG_PRETTY=1
   -p 9229:9229
-  jameskyburz/node-sandbox-debugger:0.0.1
+  jameskyburz/node-sandbox-debugger
 ```
 
 # license
