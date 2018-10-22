@@ -10,7 +10,9 @@ const { DEBUG_PROXY } = process.env
 if (!DEBUG_PROXY) throw new TypeError('missing DEBUG_PROXY')
 
 if (process.env.__DEBUG__) {
-  process.on('message', ({ pid }) => process._debugProcess(pid))
+  process.on('message', ({ pid }) => {
+    process._debugProcess(+pid)
+  })
 } else {
   if (process.env.__DEBUG_PID__) {
     startDebug().catch(err => {
