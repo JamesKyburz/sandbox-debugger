@@ -20,5 +20,14 @@
   "files": [
     "src"
   ],
+  "keywords": [
+    "inspect",
+    "debug",
+    "sandbox",
+    "docker",
+    "lambda",
+    "remote-debugging",
+    "server"
+  ],
   "license": "Apache-2.0"
 }
