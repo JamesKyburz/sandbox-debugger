@@ -52,6 +52,7 @@ async function startDebug () {
       const local = new WebSocket(json[0].webSocketDebuggerUrl)
       const close = name => () => {
         console.log('connection closed by %s', name)
+        process._debugEnd(+process.env.__DEBUG_PID__)
         process.exit(1)
       }
 
