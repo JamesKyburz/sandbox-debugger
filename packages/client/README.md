@@ -1,16 +1,67 @@
 # sandbox-debugger
 
-sandbox-debugger client
-
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![downloads](https://img.shields.io/npm/dm/sandbox-debugger.svg)](https://npmjs.org/package/sandbox-debugger)
 
-# example
+sandbox debugger client
+
+Debug a remote node process on a machine you can't SSH tunnel to.
+
+e.g AWS lambda.
+
+```
+┌────────────────────────┐     ┌───────────────────────┐     ┌───────────────────────┐
+│ node process port 9229 │<--->│ sandbox server client │<--->│ sandbox server broker │
+└────────────────────────┘     └───────────────────────┘     └───────────────────────┘
+```
+
+Node opens a websocket when in debug mode, both the sandbox server and client work by piping the websocket data via the broker.
+
+# HTTP & WebSocket broker
+
+## Node
+
+```sh
+npm start
+```
+
+## Running broker in Docker
+
+Docker images hosted at https://hub.docker.com/r/jameskyburz/node-sandbox-debugger
+
+```sh
+ᐅ docker run \
+  --name node-sandbox-debugger \
+  -e PORT=9229 \
+  -e LOG_PRETTY=1 \
+  -p 9229:9229 \
+  jameskyburz/node-sandbox-debugger
+```
+
+# Client 
+
+## Example debug current process
 
 ```javascript
+// index.js
 console.log('please debug me')
 require('sandbox-debugger')
 ```
+
+```sh
+# DEBUG_PROXY is ip:port to sandbox broker
+DEBUG_PROXY=ip:port # server
+node index
+```
+
+## Example debug an already running process
+
+```sh
+# DEBUG_PROXY is ip:port to sandbox broker
+# DEBUG_PID is pid of process to debug
+DEBUG_PROXY=ip:port DEBUG_PID=x npx sandbox-debugger
+```
+
 # license
 
 [Apache License, Version 2.0](LICENSE)
