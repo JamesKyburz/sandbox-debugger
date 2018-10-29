@@ -10,7 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "npx macleod exec npm test"
+    "test": "npx macleod exec npm test && cd test && npm i && npm t"
   },
   "private": true
 }

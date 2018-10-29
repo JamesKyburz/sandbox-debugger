@@ -1,0 +1,15 @@
+{
+  "name": "test-sandbox-debugger",
+  "scripts": {
+    "test": "tap src/*.js"
+  },
+  "devDependencies": {
+    "sandbox-debugger": "file://../packages/client",
+    "sandbox-debugger-server": "file://../packages/server",
+    "node-fetch": "2.2.0",
+    "tap": "12.0.1",
+    "ws": "6.1.0"
+  },
+  "dependencies": {},
+  "private": true
+}

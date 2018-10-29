@@ -36,7 +36,6 @@ async function startDebug () {
   ps.on('exit', () => process.exit(0))
   const proxy = process.env.DEBUG_PROXY
 
-  await delay(1000)
   while (true) {
     try {
       const getJSON = url => fetch(url).then(res => res.json())
@@ -66,7 +65,7 @@ async function startDebug () {
 
       break
     } catch (e) {
-      await delay(300)
+      await delay(100)
     }
   }
 }
