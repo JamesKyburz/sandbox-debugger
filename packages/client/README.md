@@ -44,8 +44,9 @@ Docker images hosted at https://hub.docker.com/r/jameskyburz/node-sandbox-debugg
 
 ```javascript
 // index.js
-console.log('please debug me')
 require('sandbox-debugger')
+debugger
+console.log('all done')
 ```
 
 ```sh

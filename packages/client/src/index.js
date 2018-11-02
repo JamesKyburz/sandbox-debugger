@@ -3,11 +3,16 @@
 const fetch = require('node-fetch')
 const WebSocket = require('ws')
 const delay = require('delay')
-const { fork } = require('child_process')
+const { fork, execSync } = require('child_process')
+const tempy = require('tempy')
+const touch = require('touch')
+const fs = require('fs')
 
 const { DEBUG_PROXY } = process.env
 
 if (!DEBUG_PROXY) throw new TypeError('missing DEBUG_PROXY')
+
+const stdio = process.env.DEBUG ? 'inherit' : 'ignore'
 
 if (process.env.__DEBUG__) {
   process.on('message', ({ pid }) => {
@@ -20,18 +25,36 @@ if (process.env.__DEBUG__) {
       process.exit(1)
     })
   } else {
+    const lockfile = tempy.file()
     const ps = fork(__filename, {
       env: {
         ...process.env,
-        __DEBUG_PID__: process.env.DEBUG_PID || process.pid
-      }
+        __DEBUG_PID__: process.env.DEBUG_PID || process.pid,
+        __DEBUG_LOCK__: lockfile
+      },
+      stdio
     })
     ps.on('exit', () => process.exit(0))
+    const waitForLockfile = () => {
+      while (true) {
+        try {
+          fs.statSync(lockfile)
+          break
+        } catch (e) {}
+        execSync(`node -e 'setTimeout(f => f, 100)'`)
+      }
+    }
+    if (module.parent) {
+      module.exports = waitForLockfile()
+    }
   }
 }
 
 async function startDebug () {
-  const ps = fork(__filename, { env: { ...process.env, __DEBUG__: true } })
+  const ps = fork(__filename, {
+    env: { ...process.env, __DEBUG__: true },
+    stdio
+  })
   ps.send({ pid: process.env.__DEBUG_PID__ })
   ps.on('exit', () => process.exit(0))
   const proxy = process.env.DEBUG_PROXY
@@ -57,6 +80,9 @@ async function startDebug () {
 
       remote.once('close', close('remote'))
       remote.once('message', message => {
+        remote.once('message', () => {
+          touch.sync(process.env.__DEBUG_LOCK__)
+        })
         remote.on('message', message => local.send(message))
         local.on('message', message => remote.send(message))
 
