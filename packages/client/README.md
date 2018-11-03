@@ -51,8 +51,7 @@ console.log('all done')
 
 ```sh
 # DEBUG_PROXY is ip:port to sandbox broker
-DEBUG_PROXY=ip:port # server
-node index
+DEBUG_PROXY=ip:port node index.js
 ```
 
 ## Example debug an already running process
