@@ -3,10 +3,11 @@
 const fetch = require('node-fetch')
 const WebSocket = require('ws')
 const delay = require('delay')
-const { fork, execSync } = require('child_process')
+const { fork } = require('child_process')
 const tempy = require('tempy')
 const touch = require('touch')
 const fs = require('fs')
+const sleep = require('sleep-sync')
 
 const { DEBUG_PROXY } = process.env
 
@@ -41,7 +42,7 @@ if (process.env.__DEBUG__) {
           fs.statSync(lockfile)
           break
         } catch (e) {}
-        execSync(`node -e 'setTimeout(f => f, 100)'`)
+        sleep(100)
       }
     }
     if (module.parent) {

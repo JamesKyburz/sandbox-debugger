@@ -1,6 +1,7 @@
 # sandbox-debugger
 
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
+[![build status](https://api.travis-ci.org/JamesKyburz/sandbox-debugger.svg)](https://travis-ci.org/JamesKyburz/sandbox-debugger)
 [![Docker Build Status](https://img.shields.io/docker/build/jameskyburz/node-sandbox-debugger.svg)]()
 [![downloads](https://img.shields.io/npm/dm/sandbox-debugger-server.svg)](https://npmjs.org/package/sandbox-debugger-server)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jameskyburz/node-sandbox-debugger.svg)]()

@@ -1,6 +1,7 @@
 # sandbox-debugger
 
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
+[![build status](https://api.travis-ci.org/JamesKyburz/sandbox-debugger.svg)](https://travis-ci.org/JamesKyburz/sandbox-debugger)
 [![downloads](https://img.shields.io/npm/dm/sandbox-debugger.svg)](https://npmjs.org/package/sandbox-debugger)
 
 sandbox debugger client
