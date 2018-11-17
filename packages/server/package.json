@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "server-base": "6.1.0",
-    "ws": "6.1.0"
+    "ws": "6.1.1"
   },
   "files": [
     "src"
