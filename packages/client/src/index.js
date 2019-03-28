@@ -7,7 +7,8 @@ const { fork } = require('child_process')
 const tempy = require('tempy')
 const touch = require('touch')
 const fs = require('fs')
-const sleep = require('sleep-sync')
+const { execSync } = require('child_process')
+const sleep = n => execSync(`sleep ${n}`)
 
 const { DEBUG_PROXY } = process.env
 
@@ -42,7 +43,7 @@ if (process.env.__DEBUG__) {
           fs.statSync(lockfile)
           break
         } catch (e) {}
-        sleep(100)
+        sleep(1)
       }
     }
     if (module.parent) {
