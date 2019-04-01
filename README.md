@@ -34,10 +34,20 @@ Docker images hosted at https://hub.docker.com/r/jameskyburz/node-sandbox-debugg
 ```sh
 ᐅ docker run \
   --name node-sandbox-debugger \
+  -ti \
+  --rm \
   -e PORT=9229 \
   -e LOG_PRETTY=1 \
   -p 9229:9229 \
   jameskyburz/node-sandbox-debugger
+```
+
+## Reverse proxy
+
+Using [ngrok](https://npm.im/ngrok) you can tunnel to the locally running broker from for example aws lambda.
+
+```sh
+npx ngrok http 9229
 ```
 
 # Client 
