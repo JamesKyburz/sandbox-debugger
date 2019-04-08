@@ -15,7 +15,7 @@
     "missing": "npx dependency-sync --once --debug src/index.js"
   },
   "dependencies": {
-    "delay": "4.1.0",
+    "delay": "4.2.0",
     "node-fetch": "2.3.0",
     "tempy": "0.2.1",
     "touch": "3.1.0",
