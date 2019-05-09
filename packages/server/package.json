@@ -11,11 +11,11 @@
   "version": "0.1.10",
   "main": "src/index.js",
   "scripts": {
-    "missing": "npx dependency-sync --once --debug src/index.js"
+    "missing": "npx dependency-sync@latest --once --debug src/index.js"
   },
   "dependencies": {
-    "server-base": "7.0.0",
-    "ws": "6.1.1"
+    "server-base": "7.0.5",
+    "ws": "7.0.0"
   },
   "files": [
     "src"
