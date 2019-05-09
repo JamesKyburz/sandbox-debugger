@@ -7,6 +7,9 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/jameskyburz/node-sandbox-debugger.svg)]()
 [![Greenkeeper badge](https://badges.greenkeeper.io/JamesKyburz/sandbox-debugger.svg)](https://greenkeeper.io/)
 
+sandbox debugger broker server
+
+A reverse proxy debugger.
 Debug a remote node process on a machine you can't SSH tunnel to.
 
 e.g AWS lambda.

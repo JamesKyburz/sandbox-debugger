@@ -27,6 +27,7 @@
     "docker",
     "lambda",
     "remote-debugging",
+    "reverse-proxy",
     "server"
   ],
   "license": "Apache-2.0"

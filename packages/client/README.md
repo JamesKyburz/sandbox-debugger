@@ -7,6 +7,7 @@
 
 sandbox debugger client
 
+A reverse proxy debugger.
 Debug a remote node process on a machine you can't SSH tunnel to.
 
 e.g AWS lambda.
