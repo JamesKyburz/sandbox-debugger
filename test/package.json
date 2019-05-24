@@ -1,14 +1,15 @@
 {
   "name": "test-sandbox-debugger",
   "scripts": {
-    "test": "tap src/*.js"
+    "test": "node src/same-process.js | tap-spec && node src/another-process.js | tap-spec"
   },
   "devDependencies": {
+    "node-fetch": "2.6.0",
     "sandbox-debugger": "file://../packages/client",
     "sandbox-debugger-server": "file://../packages/server",
-    "node-fetch": "2.2.0",
-    "tap": "12.0.1",
-    "ws": "6.1.0"
+    "tap": "14.1.10",
+    "tap-spec": "5.0.0",
+    "ws": "7.0.0"
   },
   "dependencies": {},
   "private": true
