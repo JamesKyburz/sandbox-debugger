@@ -3,6 +3,7 @@
     "default": {
       "packages": [
         "package.json",
+        "test/package.json",
         "packages/client/package.json",
         "packages/server/package.json"
       ]
