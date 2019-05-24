@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const sessions = {}
 
 const WebSocket = require('ws')
