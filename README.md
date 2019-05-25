@@ -25,7 +25,7 @@ Node opens a websocket when in debug mode, both the sandbox server and client wo
 ## Run locally
 
 ```sh
-PORT=9229 npx sandbox-debugger-server
+npx sandbox-debugger-server 9229
 ```
 
 ## Running broker in Docker
