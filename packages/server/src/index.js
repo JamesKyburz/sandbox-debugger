@@ -19,7 +19,9 @@ const freeDebug = () => {
   return sessions[free[0]]
 }
 
-const server = serverBase({
+const port = process.env.PORT || process.argv.slice(2)[0]
+
+const server = serverBase(require('../package.json').name, {
   '@setup' (ctx) {
     ctx.middlewareFunctions = []
   },
@@ -53,7 +55,7 @@ const server = serverBase({
       res.end()
     }
   }
-}).start()
+}).start(port)
 
 const wss = new WebSocket.Server({ noServer: true })
 
