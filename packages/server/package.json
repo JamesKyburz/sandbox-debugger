@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "server-base": "7.0.23",
-    "ws": "7.0.0"
+    "ws": "7.0.1"
   },
   "files": [
     "src"
