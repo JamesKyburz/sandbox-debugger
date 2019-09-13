@@ -8,7 +8,7 @@
     "name": "james kyburz",
     "email": "james.kyburz@gmail.com"
   },
-  "version": "0.1.33",
+  "version": "0.1.35",
   "main": "src/index.js",
   "bin": "src/index.js",
   "scripts": {
