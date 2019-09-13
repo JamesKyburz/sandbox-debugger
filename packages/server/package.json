@@ -15,7 +15,7 @@
     "missing": "npx dependency-sync@latest --once --debug src/index.js"
   },
   "dependencies": {
-    "server-base": "7.0.23",
+    "server-base": "7.0.62",
     "ws": "7.1.2"
   },
   "files": [
