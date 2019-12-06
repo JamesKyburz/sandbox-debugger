@@ -7,18 +7,13 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/jameskyburz/node-sandbox-debugger.svg)]()
 [![Greenkeeper badge](https://badges.greenkeeper.io/JamesKyburz/sandbox-debugger.svg)](https://greenkeeper.io/)
 
-sandbox debugger broker server
-
 A reverse proxy debugger.
 Debug a remote node process on a machine you can't SSH tunnel to.
 
 e.g AWS lambda.
 
-```
-┌────────────────────────┐     ┌───────────────────────┐     ┌───────────────────────┐
-│ node process port 9229 │<--->│ sandbox server client │<--->│ sandbox server broker │
-└────────────────────────┘     └───────────────────────┘     └───────────────────────┘
-```
+| node debug port 9229 | ⟷ | sandbox debug client | ⟷ | sandbox debug broker |
+| :--                  | :-:  | --:                  | --:  | --:                  |
 
 Node opens a websocket when in debug mode, both the sandbox server and client work by piping the websocket data via the broker.
 
@@ -27,7 +22,7 @@ Node opens a websocket when in debug mode, both the sandbox server and client wo
 ## Run locally
 
 ```sh
-npx sandbox-debugger-server 9229
+npx sandbox-debugger-server
 ```
 
 ## Running broker in Docker
@@ -39,8 +34,6 @@ Docker images hosted at https://hub.docker.com/r/jameskyburz/node-sandbox-debugg
   --name node-sandbox-debugger \
   -ti \
   --rm \
-  -e PORT=9229 \
-  -e LOG_PRETTY=1 \
   -p 9229:9229 \
   jameskyburz/node-sandbox-debugger
 ```
@@ -64,10 +57,11 @@ debugger
 console.log('all done')
 ```
 
+<a href="https://asciinema.org/a/285819?autoplay=1&speed=2&size=small&preload=1"><img src="https://asciinema.org/a/285819.png" width="380"/></a>
+
 ```sh
 # DEBUG_PROXY is ip:port to sandbox broker
-DEBUG_PROXY=ip:port # server
-node index
+DEBUG_PROXY=ip:port node index.js
 ```
 
 ## Example debug an already running process
@@ -77,6 +71,8 @@ node index
 # DEBUG_PID is pid of process to debug
 DEBUG_PROXY=ip:port DEBUG_PID=x npx sandbox-debugger
 ```
+
+<a href="https://asciinema.org/a/285820?autoplay=1&speed=2&size=small&preload=1"><img src="https://asciinema.org/a/285820.png" width="380"/></a>
 
 # license
 
