@@ -15,6 +15,8 @@
     "missing": "npx dependency-sync@latest --once --debug src/index.js"
   },
   "dependencies": {
+    "boxen": "4.2.0",
+    "chalk": "3.0.0",
     "server-base": "7.0.88",
     "ws": "7.2.0"
   },

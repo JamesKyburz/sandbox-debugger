@@ -1,8 +1,14 @@
 #!/usr/bin/env node
 const sessions = {}
 
+if (process.env.PORT === undefined) process.env.PORT = 9229
+if (process.env.LOG_PRETTY === undefined) process.env.LOG_PRETTY = true
+
+const chalk = require('chalk')
+const boxen = require('boxen')
 const WebSocket = require('ws')
 const serverBase = require('server-base')
+const os = require('os')
 const log = serverBase.log('sandbox-debugger/server')
 
 const freeSession = () => {
@@ -17,6 +23,18 @@ const freeDebug = () => {
   )
   if (!free.length) return {}
   return sessions[free[0]]
+}
+
+const getNetworkAddress = () => {
+  const networkInterfaces = os.networkInterfaces()
+  for (const name of Object.keys(networkInterfaces)) {
+    for (const networkInterface of networkInterfaces[name]) {
+      const { address, family, internal } = networkInterface
+      if (family === 'IPv4' && !internal) {
+        return address
+      }
+    }
+  }
 }
 
 const port = process.env.PORT || process.argv.slice(2)[0]
@@ -57,6 +75,27 @@ const server = serverBase(require('../package.json').name, {
   }
 }).start(port)
 
+server.on('listening', () => {
+  const ip = getNetworkAddress()
+  const port = process.env.PORT || 9229
+  let message = chalk.green('Debug server started!')
+
+  message += `\n\n${chalk.bold(
+    ' - To debug a new process that explicitly requires sandbox-debugger:'
+  )} DEBUG_PROXY=${ip}:${port} node index.js`
+  message += `\n\n${chalk.bold(
+    ' - To debug an existing process:'
+  )} DEBUG_PROXY=${ip}:${port} DEBUG_PID=pid npx sandbox-debugger`
+
+  console.log(
+    boxen(message, {
+      padding: 1,
+      borderColor: 'green',
+      margin: 1
+    })
+  )
+})
+
 const wss = new WebSocket.Server({ noServer: true })
 
 server.on('upgrade', (req, socket, head) => {
@@ -66,7 +105,7 @@ server.on('upgrade', (req, socket, head) => {
 
       if (!session.id) {
         ws.close()
-        log.error(`session couldn't be created`)
+        log.error("session couldn't be created")
         return
       }
 
@@ -84,7 +123,7 @@ server.on('upgrade', (req, socket, head) => {
       if (!session.id) {
         ws.close()
         log.error(
-          `debug could'nt be started, no free session available %j`,
+          "debug could'nt be started, no free session available %j",
           sessions
         )
         return
