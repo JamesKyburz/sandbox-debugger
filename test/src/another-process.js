@@ -3,7 +3,7 @@ const { fork, spawn } = require('child_process')
 const WebSocket = require('ws')
 const fetch = require('node-fetch')
 
-const broker = require.resolve('sandbox-debugger-server')
+const broker = require.resolve('./test-broker')
 const clientStart = require.resolve('sandbox-debugger')
 const anotherProcess = require.resolve('./fixtures/another-process')
 
@@ -13,7 +13,7 @@ let server
 let client
 
 test('start sandbox-debugger http/ws broker', async t => {
-  server = spawn('node', [broker], { stdio, env: { PORT: 9228 } })
+  server = spawn('node', [broker], { stdio })
   process.on('exit', server.kill.bind(server))
   while (true) {
     if (await fetch('http://localhost:9228/ping').catch(f => false)) break

@@ -1,14 +1,15 @@
 #!/usr/bin/env node
+
 const sessions = {}
 
 if (process.env.PORT === undefined) process.env.PORT = 9229
 if (process.env.LOG_PRETTY === undefined) process.env.LOG_PRETTY = true
 
-const chalk = require('chalk')
-const boxen = require('boxen')
 const WebSocket = require('ws')
 const serverBase = require('server-base')
 const os = require('os')
+const chalk = require('chalk')
+const boxen = require('boxen')
 const log = serverBase.log('sandbox-debugger/server')
 
 const freeSession = () => {
