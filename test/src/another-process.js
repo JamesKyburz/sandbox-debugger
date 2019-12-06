@@ -13,7 +13,7 @@ let server
 let client
 
 test('start sandbox-debugger http/ws broker', async t => {
-  server = spawn('node', [broker], { stdio })
+  server = spawn('node', [broker], { stdio, env: { PORT: 9228 } })
   process.on('exit', server.kill.bind(server))
   while (true) {
     if (await fetch('http://localhost:9228/ping').catch(f => false)) break

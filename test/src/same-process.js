@@ -13,6 +13,9 @@ let client
 
 test('start sandbox-debugger http/ws broker', async t => {
   server = spawn('node', [broker], {
+    env: {
+      PORT: 9228
+    },
     stdio
   })
   process.on('exit', server.kill.bind(server))
