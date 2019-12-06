@@ -12,11 +12,8 @@ Debug a remote node process on a machine you can't SSH tunnel to.
 
 e.g AWS lambda.
 
-```
-┌──────────────────────┐ ┌──────────────────────┐ ┌──────────────────────┐
-│ node debug port 9229 │⟷│ sandbox debug client │⟷│ sandbox debug broker │
-└──────────────────────┘ └──────────────────────┘ └──────────────────────┘
-```
+| node debug port 9229 | ⟷ | sandbox debug client | ⟷ | sandbox debug broker |
+| :--                  | :-:  | --:                  | --:  | --:                  |
 
 Node opens a websocket when in debug mode, both the sandbox server and client work by piping the websocket data via the broker.
 
