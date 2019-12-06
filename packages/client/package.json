@@ -12,7 +12,9 @@
   "main": "src/index.js",
   "bin": "src/index.js",
   "scripts": {
-    "missing": "npx dependency-sync --once --debug src/index.js"
+    "missing": "npx dependency-sync --once --debug src/index.js",
+    "prepublish": "npx @zeit/ncc build -m src/index.js",
+    "postpublish": "rm -rf dist"
   },
   "dependencies": {
     "delay": "4.3.0",
