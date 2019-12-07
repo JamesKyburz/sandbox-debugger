@@ -97,6 +97,15 @@ DEBUG_PROXY=ip:port DEBUG_PID=x npx sandbox-debugger
 
 <a href="https://asciinema.org/a/285820?autoplay=1&speed=2&size=small&preload=1"><img src="https://asciinema.org/a/285820.png" width="380"/></a>
 
+## AWS Lambda
+
+The easiest way to debug lambda is to edit the code in aws console.
+
+* Copy the contents of `https://unpkg.com/sandbox-debugger@latest/dist/index.js` to debug.js
+* `require('./debug.js')` instead of `sandbox-debugger`
+
+
+
 # license
 
 [Apache License, Version 2.0](LICENSE)
