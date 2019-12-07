@@ -25,9 +25,7 @@ Node opens a websocket when in debug mode, both the sandbox server and client wo
 npx sandbox-debugger-server
 ```
 
-## Running broker in Docker
-
-Docker images hosted at https://hub.docker.com/r/jameskyburz/node-sandbox-debugger
+or
 
 ```sh
 ᐅ docker run \
@@ -36,6 +34,24 @@ Docker images hosted at https://hub.docker.com/r/jameskyburz/node-sandbox-debugg
   --rm \
   -p 9229:9229 \
   jameskyburz/node-sandbox-debugger
+```
+
+The server will output
+
+```sh
+   Debug server started!                       
+                                               
+    - To debug a new process:                  
+      export DEBUG_PROXY=xxx.xxx.x.xxx:9229    
+      node index.js                            
+                                               
+    - To debug an existing process:            
+      export DEBUG_PROXY=xxx.xxx.x.xxx:9229    
+      export DEBUG_PID=<pid of node process>   
+      npx sandbox-debugger                     
+                                               
+     - Allow remove access to me:              
+      npx ngrok http 9229                      
 ```
 
 ## Reverse proxy
