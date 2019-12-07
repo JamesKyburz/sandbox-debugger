@@ -80,7 +80,7 @@ debugger
 console.log('all done')
 ```
 
-<a href="https://asciinema.org/a/285819?autoplay=1&speed=2&size=small&preload=1"><img src="https://asciinema.org/a/285819.png" width="380"/></a>
+<a href="https://asciinema.org/a/285819?autoplay=1&speed=2&size=small&preload=1"><img src="https://asciinema.org/a/285819.png" width="100%"/></a>
 
 ```sh
 # DEBUG_PROXY is ip:port to sandbox broker
@@ -95,7 +95,7 @@ DEBUG_PROXY=ip:port node index.js
 DEBUG_PROXY=ip:port DEBUG_PID=x npx sandbox-debugger
 ```
 
-<a href="https://asciinema.org/a/285820?autoplay=1&speed=2&size=small&preload=1"><img src="https://asciinema.org/a/285820.png" width="380"/></a>
+<a href="https://asciinema.org/a/285820?autoplay=1&speed=2&size=small&preload=1"><img src="https://asciinema.org/a/285820.png" width="100%"/></a>
 
 ## AWS Lambda
 
