@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: Run tests
       run: |
-        docker run -d --name sandbox-debugger -p 9228:9228 sandbox-debugger
+        docker run -d --name sandbox-debugger -e PORT=9228 -p 9228:9228 sandbox-debugger
         export NO_SERVER=1
         npm t
         docker kill sandbox-debugger
