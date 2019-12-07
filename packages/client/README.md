@@ -18,7 +18,7 @@ Interactive debugging using [inspect](https://nodejs.org/de/docs/guides/debuggin
 - [x] a process running in a docker container with no exposed ports
 - [x] a process running on [travis ci](https://travis-ci.org/)
 - [x] AWS Lambda (https://aws.amazon.com/lambda/)
-- [x] anywhere that allowes outbound internet traffic to port 443
+- [x] anywhere that allows outbound internet traffic to port 443
 
 How it works?
 
