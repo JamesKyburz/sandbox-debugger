@@ -11,9 +11,21 @@ const stdio = process.env.DEBUG ? 'inherit' : 'ignore'
 let server
 let client
 
-test('start sandbox-debugger http/ws broker', async t => {
-  server = spawn('node', [broker], { stdio })
-  process.on('exit', server.kill.bind(server))
+if (!process.env.NO_SERVER) {
+  test('start sandbox-debugger http/ws broker', async t => {
+    server = spawn('node', [broker], { stdio })
+    process.on('exit', server.kill.bind(server))
+  })
+}
+
+test('wait for broker to be ready', async t => {
+  while (true) {
+    if (await fetch('http://localhost:9228/ping').catch(f => false)) break
+    await new Promise((resolve, reject) => setTimeout(resolve, 100))
+  }
+})
+
+test('wait for broker to be read', async t => {
   while (true) {
     if (await fetch('http://localhost:9228/ping').catch(f => false)) break
     await new Promise((resolve, reject) => setTimeout(resolve, 100))
@@ -88,6 +100,10 @@ test('debug commands are piped to broker', async t => {
 test('stop sandbox-debugger http/ws broker', async t => {
   await new Promise((resolve, reject) => {
     client.once('close', resolve)
-    if (server) server.kill()
+    if (server) {
+      server.kill()
+    } else {
+      client.kill('SIGTERM')
+    }
   })
 })
