@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build ./packages/server --file Dockerfile --tag sandbox-debugger
+      run: docker build ./packages/server --file ./packages/server/Dockerfile --tag sandbox-debugger
     - uses: actions/checkout@v1
     - name: Run tests
       run: |
