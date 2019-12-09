@@ -7,19 +7,20 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/jameskyburz/node-sandbox-debugger.svg)]()
 [![Greenkeeper badge](https://badges.greenkeeper.io/JamesKyburz/sandbox-debugger.svg)](https://greenkeeper.io/)
 
-Debug a [Node.js](https://nodejs.org/en/) process anywhere using `chrome://inspect` or `node-inspect`
+Debug a [Node.js](https://nodejs.org) process anywhere using `chrome://inspect` or `node-inspect`
 
 | node debug port 9229 | ⟷ | sandbox debug client | ⟷ | sandbox debug broker |
 | :--                  | :-:  | --:                  | --:  | --:                  |
 
 Interactive debugging using [inspect](https://nodejs.org/de/docs/guides/debugging-getting-started/), debug the same way you do with a local process.
 
-Supports a process running
+Supports a [Node.js](https://nodejs.org) process running
 
 - [x] on a machine you can't ssh / don't have access to
 - [x] in a docker container with no exposed ports
 - [x] on [travis ci](https://travis-ci.org/)
 - [x] on [github actions](https://github.com/features/actions)
+- [x] on [AWS CodeBuild](https://aws.amazon.com/codebuild/)
 - [x] on [AWS Lambda](https://aws.amazon.com/lambda/)
 - [x] anywhere that allows outbound internet traffic to port 80
 
