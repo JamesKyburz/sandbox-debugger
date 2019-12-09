@@ -33,6 +33,8 @@
     "sandbox",
     "docker",
     "lambda",
+    "travis",
+    "github-actions",
     "remote-debugging",
     "reverse-proxy",
     "client"
