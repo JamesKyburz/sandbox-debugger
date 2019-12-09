@@ -20,7 +20,7 @@ Supports a process running
 - [x] in a docker container with no exposed ports
 - [x] on [travis ci](https://travis-ci.org/)
 - [x] on [github actions](https://github.com/features/actions)
-- [x] on AWS Lambda(https://aws.amazon.com/lambda/)
+- [x] on [AWS Lambda](https://aws.amazon.com/lambda/)
 - [x] anywhere that allows outbound internet traffic to port 80
 
 How it works?
