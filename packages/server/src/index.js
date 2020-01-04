@@ -79,22 +79,26 @@ const server = serverBase(require('../package.json').name, {
 server.on('listening', () => {
   const ip = getNetworkAddress()
   const port = process.env.PORT || 9229
-  const message = `
-${chalk.green('Debug server started!')}
+  const message = `${chalk.green('Debug server started!')}
 
- ${chalk.bold('- To debug a new process:')}
-   export DEBUG_PROXY=${ip}:${port}
-   node index.js
+${chalk.bold('- To debug a new process:')}
+  export DEBUG_PROXY=${ip}:${port}
+  node index.js
 
- ${chalk.bold('- To debug an existing process:')}
-   export DEBUG_PROXY=${ip}:${port}
-   export DEBUG_PID=<pid of node process>
-   npx sandbox-debugger
+${chalk.bold('- To debug an existing process:')}
+  export DEBUG_PROXY=${ip}:${port}
+  export DEBUG_PID=<pid of node process>
+  npx sandbox-debugger
 
- ${chalk.bold(' - Allow remove access to me:')}
-   npx ngrok http 9229
+${chalk.bold('- Find pid of first running Node.js process:')}
+  ps aux |
+  grep 'no[d]e ' |
+  awk '{print $2}' |
+  head -n 1
 
-`
+${chalk.bold('- Allow remote access to me:')}
+  npx ngrok http 9229`
+
   console.log(
     boxen(message, {
       padding: 1,

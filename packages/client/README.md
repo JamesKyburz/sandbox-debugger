@@ -60,8 +60,14 @@ The server will output
       export DEBUG_PROXY=xxx.xxx.x.xxx:9229    
       export DEBUG_PID=<pid of node process>   
       npx sandbox-debugger                     
+
+    - Find pid of first running Node.js process
+      ps aux |
+      grep 'no[d]e ' |
+      awk '{print $2}' |
+      head -n 1
                                                
-     - Allow remove access to me:              
+    - Allow remote access to me:              
       npx ngrok http 9229                      
 ```
 
