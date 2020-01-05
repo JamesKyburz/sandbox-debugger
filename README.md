@@ -62,9 +62,9 @@ The server will output
       npx sandbox-debugger                     
 
     - Find pid of first running Node.js process
-      ps aux |
+      ps ax |
       grep 'no[d]e ' |
-      awk '{print $2}' |
+      awk '{print $1}' |
       head -n 1
 
     - Allow remote access to me:              

@@ -91,9 +91,9 @@ ${chalk.bold('- To debug an existing process:')}
   npx sandbox-debugger
 
 ${chalk.bold('- Find pid of first running Node.js process:')}
-  ps aux |
+  ps ax |
   grep 'no[d]e ' |
-  awk '{print $2}' |
+  awk '{print $1}' |
   head -n 1
 
 ${chalk.bold('- Allow remote access to me:')}
