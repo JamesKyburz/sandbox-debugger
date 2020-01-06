@@ -32,7 +32,7 @@ jobs:
         docker tag sandbox-debugger docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger:$(git describe --tags)
     - name: Login to github registry
       run: >
-        echo ${{ secrets.GITHUB_REGISTRY_TOKEN }} |
+        echo ${{ secrets.GITHUB_TOKEN }} |
         docker login docker.pkg.github.com --username JamesKyburz --password-stdin
     - name: Publish docker images to github
       run: |
