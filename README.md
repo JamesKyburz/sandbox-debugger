@@ -22,6 +22,7 @@ Supports a [Node.js](https://nodejs.org) process running
 - [x] on [github actions](https://github.com/features/actions)
 - [x] on [AWS CodeBuild](https://aws.amazon.com/codebuild/)
 - [x] on [AWS Lambda](https://aws.amazon.com/lambda/)
+- [x] on [Heroku](https://www.heroku.com/)
 - [x] anywhere that allows outbound internet traffic to port 80
 
 How it works?
