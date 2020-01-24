@@ -12,7 +12,7 @@
   "main": "src/index.js",
   "bin": "src/index.js",
   "scripts": {
-    "missing": "npx dependency-sync@latest --once --debug src/index.js"
+    "missing": "npx dependency-sync@latest"
   },
   "dependencies": {
     "boxen": "4.2.0",
