@@ -46,9 +46,7 @@ if (process.env.__DEBUG__) {
         sleep(1)
       }
     }
-    if (module.parent) {
-      module.exports = waitForLockfile()
-    }
+    waitForLockfile()
   }
 }
 
