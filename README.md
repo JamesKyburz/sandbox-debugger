@@ -110,12 +110,16 @@ DEBUG_PROXY=ip:port DEBUG_PID=x npx sandbox-debugger
 
 ## AWS Lambda
 
+Environment variable `DEBUG_PROXY` needs to point to the `ngrok` address including the port part `:80`.
+
 The easiest way to debug lambda is to edit the code in aws console.
 
 * Copy the contents of `https://unpkg.com/sandbox-debugger@latest/dist/index.js` to debug.js
 * `require('./debug.js')` instead of `sandbox-debugger`
 
+or
 
+Use a [lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) containing the `sandbox-debugger`, you can publish your own for node 12 [here](https://github.com/JamesKyburz/aws-lambda-layers/blob/master/node/12.x/sandbox-debugger/publish.sh) and also node 10 [here](https://github.com/JamesKyburz/aws-lambda-layers/blob/master/node/10.x/sandbox-debugger/publish.sh).
 
 # license
 
