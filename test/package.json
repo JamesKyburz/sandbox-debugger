@@ -1,8 +1,9 @@
 {
   "name": "test-sandbox-debugger",
   "scripts": {
-    "pretest": "npm --prefix ../packages/client run build",
-    "test": "node src/same-process.js | tap-spec && node src/another-process.js | tap-spec"
+    "preinstall": "npm --prefix ../packages/client install && npm --prefix ../packages/client run build",
+    "test": "node src/same-process.js | tap-spec && node src/another-process.js | tap-spec",
+    "posttest": "rm -rf ../packages/client/dist"
   },
   "devDependencies": {
     "node-fetch": "2.6.0",
