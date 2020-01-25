@@ -9,14 +9,14 @@
     "email": "james.kyburz@gmail.com"
   },
   "version": "0.2.19",
-  "main": "src/index.js",
-  "bin": "src/index.js",
+  "main": "dist/index.js",
+  "bin": "dist/index.js",
   "scripts": {
     "missing": "npx dependency-sync@latest",
     "prepublishOnly": "npx @zeit/ncc build -m src/index.js",
     "postpublish": "rm -rf dist"
   },
-  "dependencies": {
+  "devDependencies": {
     "delay": "4.3.0",
     "node-fetch": "2.6.0",
     "tempy": "0.3.0",
@@ -24,7 +24,6 @@
     "ws": "7.2.1"
   },
   "files": [
-    "src",
     "dist"
   ],
   "keywords": [
