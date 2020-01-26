@@ -1,5 +1,6 @@
 {
   "name": "sandbox-debugger-server",
+  "description": "sandbox debugger server broker for node",
   "repository": {
     "type": "git",
     "url": "git://github.com/jameskyburz/sandbox-debugger.git"
