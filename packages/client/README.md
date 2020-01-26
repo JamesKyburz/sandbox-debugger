@@ -41,11 +41,11 @@ or
 
 ```sh
 ᐅ docker run \
-  --name node-sandbox-debugger \
+  --name sandbox-debugger \
   -ti \
   --rm \
   -p 9229:9229 \
-  jameskyburz/node-sandbox-debugger
+  jameskyburz/sandbox-debugger
 ```
 
 The server will output
