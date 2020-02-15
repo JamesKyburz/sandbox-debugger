@@ -17,9 +17,11 @@ Interactive debugging using [inspect](https://nodejs.org/de/docs/guides/debuggin
 Supports a [Node.js](https://nodejs.org) process running
 
 - [x] on a machine you can't ssh / don't have access to
-- [x] in a docker container with no exposed ports
-- [x] on [travis ci](https://travis-ci.org/)
-- [x] on [github actions](https://github.com/features/actions)
+- [x] in a Docker Container with no exposed ports
+- [x] on [Travis CI](https://travis-ci.org/)
+- [x] on [Github Actions](https://github.com/features/actions)
+- [x] on [Bitbucket Pipelines](https://bitbucket.org/product/features/pipelines)
+- [x] on [GitLab CI/CD](https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/)
 - [x] on [AWS CodeBuild](https://aws.amazon.com/codebuild/)
 - [x] on [AWS Lambda](https://aws.amazon.com/lambda/)
 - [x] on [Heroku](https://www.heroku.com/)
