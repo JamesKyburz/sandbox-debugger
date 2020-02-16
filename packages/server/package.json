@@ -34,7 +34,12 @@
     "github-actions",
     "remote-debugging",
     "reverse-proxy",
-    "server"
+    "server",
+    "runkit",
+    "bitbucket-pipelines",
+    "gitlab-ci/cd",
+    "aws-codebuid",
+    "heroku"
   ],
   "license": "Apache-2.0"
 }
