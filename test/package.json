@@ -11,7 +11,7 @@
     "sandbox-debugger-server": "file://../packages/server",
     "tap": "14.10.7",
     "tap-spec": "5.0.0",
-    "ws": "7.2.2"
+    "ws": "7.2.3"
   },
   "dependencies": {},
   "private": true
