@@ -1,7 +1,7 @@
 # sandbox-debugger
 
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
-[![build status](https://api.travis-ci.org/JamesKyburz/sandbox-debugger.svg)](https://travis-ci.org/JamesKyburz/sandbox-debugger)
+[![build status](https://api.travis-ci.com/JamesKyburz/sandbox-debugger.svg)](https://travis-ci.com/JamesKyburz/sandbox-debugger)
 [![Docker Image CI](https://github.com/JamesKyburz/sandbox-debugger/workflows/Docker%20Image%20CI/badge.svg?branch=master)](https://github.com/JamesKyburz/sandbox-debugger/actions?query=workflow%3A%22Docker+Image+CI%22)
 [![downloads](https://img.shields.io/npm/dm/sandbox-debugger.svg)](https://npmjs.org/package/sandbox-debugger)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jameskyburz/node-sandbox-debugger.svg)](https://hub.docker.com/r/jameskyburz/sandbox-debugger)
@@ -17,7 +17,7 @@ Supports a [Node.js](https://nodejs.org) process running
 
 - [x] on a machine you can't ssh / don't have access to
 - [x] in a Docker Container with no exposed ports
-- [x] on [Travis CI](https://travis-ci.org/)
+- [x] on [Travis CI](https://travis-ci.com/)
 - [x] on [Github Actions](https://github.com/features/actions)
 - [x] on [Bitbucket Pipelines](https://bitbucket.org/product/features/pipelines)
 - [x] on [GitLab CI/CD](https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/)

@@ -34,7 +34,7 @@ test('wait for broker to be read', async t => {
 
 test('sandbox broker responds 404 when no debug session available', async t => {
   const res = await fetch('http://localhost:9228/json/version')
-  t.equals(404, res.status)
+  t.equal(404, res.status)
 })
 
 test('create debug session with inline process', async t => {
@@ -59,7 +59,7 @@ test('create debug session with inline process', async t => {
 
 test('sandbox broker responds to /json/version', async t => {
   const res = await fetch('http://localhost:9228/json/version')
-  t.equals(200, res.status, 'status is 200')
+  t.equal(200, res.status, 'status is 200')
   const { Browser: browser, 'Protocol-Version': version } = await res.json()
   t.ok(browser, 'response has browser')
   t.ok(version, 'response has version')
@@ -67,7 +67,7 @@ test('sandbox broker responds to /json/version', async t => {
 
 test('sandbox broker responds to /json', async t => {
   const res = await fetch('http://localhost:9228/json')
-  t.equals(200, res.status, 'status is 200')
+  t.equal(200, res.status, 'status is 200')
   const json = await res.json()
   const { id, webSocketDebuggerUrl } = json[0]
   t.ok(id, 'response has id')
@@ -86,7 +86,7 @@ test('debug commands are piped to broker', async t => {
   ]
   await new Promise((resolve, reject) => {
     ws.once('message', message => {
-      t.equals(message, JSON.stringify({ id: 1, result: {} }))
+      t.equal(message, JSON.stringify({ id: 1, result: {} }))
       resolve()
     })
     ws.once('open', () => {

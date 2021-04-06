@@ -16,10 +16,10 @@
     "missing": "npx dependency-sync@latest"
   },
   "dependencies": {
-    "boxen": "4.2.0",
+    "boxen": "5.0.1",
     "chalk": "4.1.0",
-    "server-base": "7.1.23",
-    "ws": "7.4.0"
+    "server-base": "7.1.27",
+    "ws": "7.4.4"
   },
   "files": [
     "src"

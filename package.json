@@ -10,7 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "cd test && npm i && npm t"
+    "test": "(cd test; npm t)"
   },
   "private": true
 }
