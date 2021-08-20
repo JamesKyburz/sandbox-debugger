@@ -9,7 +9,7 @@
     "node-fetch": "2.6.1",
     "sandbox-debugger": "file://../packages/client",
     "sandbox-debugger-server": "file://../packages/server",
-    "tap": "15.0.2",
+    "tap": "15.0.9",
     "tap-spec": "5.0.0",
     "ws": "7.4.4"
   },
