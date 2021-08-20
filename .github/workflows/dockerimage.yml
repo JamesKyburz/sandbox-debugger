@@ -1,44 +1,53 @@
-name: Docker Image CI
-on: [push]
+name: ci
+
+concurrency:
+  group: ci
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: docker build ./packages/server --file ./packages/server/Dockerfile --tag sandbox-debugger
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '15'
-    - name: Run tests
-      run: |
-        docker run -d --name sandbox-debugger -e PORT=9228 -p 9228:9228 sandbox-debugger
-        export NO_SERVER=1
-        npm t
-        docker kill sandbox-debugger
-    - name: Tag docker image for public registry
-      run: |
-        docker tag sandbox-debugger jameskyburz/sandbox-debugger
-        docker tag sandbox-debugger jameskyburz/sandbox-debugger:$(git describe --tags)
-    - name: Login to public docker registry
-      run: >
-        echo ${{ secrets.DOCKERHUB_PASSWORD }} |
-        docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-    - name: Publish docker images to public registry
-      run: |
-        docker push jameskyburz/sandbox-debugger:latest
-        docker push jameskyburz/sandbox-debugger:$(git describe --tags)
-    - name: Tag docker image for github registry
-      run: |
-        docker tag sandbox-debugger docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger
-        docker tag sandbox-debugger docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger:$(git describe --tags)
-    - name: Login to github registry
-      run: >
-        echo ${{ secrets.GITHUB_TOKEN }} |
-        docker login docker.pkg.github.com --username JamesKyburz --password-stdin
-    - name: Publish docker images to github
-      run: |
-        docker push docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger:latest
-        docker push docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger:$(git describe --tags)
-
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build the Docker image
+        run: docker build ./packages/server --file ./packages/server/Dockerfile --tag sandbox-debugger
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Run tests
+        run: |
+          docker run -d --name sandbox-debugger -e PORT=9228 -p 9228:9228 sandbox-debugger
+          export NO_SERVER=1
+          npm t
+          docker kill sandbox-debugger
+      - name: Tag docker image for public registry
+        run: |
+          docker tag sandbox-debugger jameskyburz/sandbox-debugger
+          docker tag sandbox-debugger jameskyburz/sandbox-debugger:$(git describe --tags)
+      - name: Login to public docker registry
+        run: >
+          echo ${{ secrets.DOCKERHUB_PASSWORD }} |
+          docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Publish docker images to public registry
+        run: |
+          docker push jameskyburz/sandbox-debugger:latest
+          docker push jameskyburz/sandbox-debugger:$(git describe --tags)
+      - name: Tag docker image for github registry
+        run: |
+          docker tag sandbox-debugger docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger
+          docker tag sandbox-debugger docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger:$(git describe --tags)
+      - name: Login to github registry
+        run: >
+          echo ${{ secrets.GITHUB_TOKEN }} |
+          docker login docker.pkg.github.com --username JamesKyburz --password-stdin
+      - name: Publish docker images to github
+        run: |
+          docker push docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger:latest
+          docker push docker.pkg.github.com/jameskyburz/sandbox-debugger/sandbox-debugger:$(git describe --tags)

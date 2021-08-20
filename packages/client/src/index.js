@@ -78,6 +78,11 @@ async function startDebug () {
         process.exit(1)
       }
 
+      remote.once('error', err => {
+        console.error(err)
+        close('remote')
+      })
+
       remote.once('close', close('remote'))
       remote.once('message', message => {
         remote.once('message', () => {

@@ -97,7 +97,7 @@ ${chalk.bold('- Find pid of first running Node.js process:')}
   head -n 1
 
 ${chalk.bold('- Allow remote access to me:')}
-  npx ngrok http 9229`
+  npx ngrok http ${port}`
 
   console.log(
     boxen(message, {
