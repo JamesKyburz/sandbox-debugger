@@ -67,7 +67,7 @@ test('debug commands are piped to broker', async t => {
   ]
   await new Promise((resolve, reject) => {
     ws.once('message', message => {
-      t.equal(message, JSON.stringify({ id: 1, result: {} }))
+      t.equal(message.toString(), JSON.stringify({ id: 1, result: {} }))
       resolve()
     })
     ws.once('open', () => {

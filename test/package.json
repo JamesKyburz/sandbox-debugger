@@ -2,7 +2,7 @@
   "name": "test-sandbox-debugger",
   "scripts": {
     "pretest": "npm --prefix ../packages/client install && npm --prefix ../packages/client run build && npm i",
-    "test": "node src/same-process.js | tap-spec && node src/another-process.js | tap-spec",
+    "test": "node src/same-process.js && node src/another-process.js",
     "posttest": "rm -rf ../packages/client/dist"
   },
   "devDependencies": {
@@ -10,8 +10,7 @@
     "sandbox-debugger": "file://../packages/client",
     "sandbox-debugger-server": "file://../packages/server",
     "tap": "15.0.9",
-    "tap-spec": "5.0.0",
-    "ws": "7.4.6"
+    "ws": "8.2.0"
   },
   "private": true
 }

@@ -88,8 +88,8 @@ async function startDebug () {
         remote.once('message', () => {
           touch.sync(process.env.__DEBUG_LOCK__)
         })
-        remote.on('message', message => local.send(message))
-        local.on('message', message => remote.send(message))
+        remote.on('message', message => local.send(message.toString()))
+        local.on('message', message => remote.send(message.toString()))
 
         local.once('close', close('local'))
       })

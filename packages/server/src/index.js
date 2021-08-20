@@ -143,10 +143,10 @@ server.on('upgrade', (req, socket, head) => {
       log.info('%s debug started', session.id)
       session.debug = ws
       session.debug.on('message', message => {
-        if (session.session) session.session.send(message)
+        if (session.session) session.session.send(message.toString())
       })
       session.session.on('message', message => {
-        if (session.debug) session.debug.send(message)
+        if (session.debug) session.debug.send(message.toString())
       })
       session.debug.once('close', () => {
         log.info('%s debug closed', session.id)
