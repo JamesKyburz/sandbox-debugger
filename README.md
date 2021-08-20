@@ -1,7 +1,8 @@
 # sandbox-debugger
 
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
-[![build status](https://api.travis-ci.com/JamesKyburz/sandbox-debugger.svg)](https://travis-ci.com/JamesKyburz/sandbox-debugger)
+[![ci](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dockerimage.yml/badge.svg)](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dockerimage.yml)
+[![automerge](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dependabot.yml/badge.svg)](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dependabot.yml)
 [![Docker Image CI](https://github.com/JamesKyburz/sandbox-debugger/workflows/Docker%20Image%20CI/badge.svg?branch=master)](https://github.com/JamesKyburz/sandbox-debugger/actions?query=workflow%3A%22Docker+Image+CI%22)
 [![downloads](https://img.shields.io/npm/dm/sandbox-debugger-server.svg)](https://npmjs.org/package/sandbox-debugger-server)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jameskyburz/node-sandbox-debugger.svg)](https://hub.docker.com/r/jameskyburz/sandbox-debugger)

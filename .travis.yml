@@ -1,9 +1,0 @@
-sudo: false
-language: node_js
-node_js:
-  - "14"
-  - "15"
-before_install:
-  - npm install npm@latest -g
-script:
-  - npx macleod exec npm i && npm t
