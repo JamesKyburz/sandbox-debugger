@@ -1,16 +1,24 @@
-name: Docker Image CI
-on: [push]
+name: ci
+
+concurrency:
+  group: ci
+  cancel-in-progress: false
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build ./packages/server --file ./packages/server/Dockerfile --tag sandbox-debugger
-    - uses: actions/checkout@v1
     - uses: actions/setup-node@v2
       with:
-        node-version: '15'
+        node-version: '14'
     - name: Run tests
       run: |
         docker run -d --name sandbox-debugger -e PORT=9228 -p 9228:9228 sandbox-debugger

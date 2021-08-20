@@ -1,0 +1,35 @@
+name: automerge
+
+concurrency:
+  group: automerge
+  cancel-in-progress: false
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: test build server image
+        run: docker build ./packages/server --file ./packages/server/Dockerfile --tag sandbox-debugger
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: run tests
+        run: |
+          docker run -d --name sandbox-debugger -e PORT=9228 -p 9228:9228 sandbox-debugger
+          export NO_SERVER=1
+          npm t
+          docker kill sandbox-debugger
+  automerge:
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v2.4.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

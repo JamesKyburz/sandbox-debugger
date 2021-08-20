@@ -14,11 +14,12 @@
   "bin": "dist/index.js",
   "scripts": {
     "missing": "npx dependency-sync@latest",
-    "build": "npx @zeit/ncc build -m src/index.js",
+    "build": "npx @vercel/ncc build -m src/index.js",
     "prepublishOnly": "npm run build",
     "postpublish": "rm -rf dist"
   },
   "devDependencies": {
+    "@vercel/ncc": "0.29.2",
     "delay": "5.0.0",
     "node-fetch": "2.6.1",
     "tempy": "1.0.1",
