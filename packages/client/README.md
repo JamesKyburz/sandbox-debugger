@@ -3,8 +3,8 @@
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
 [![ci](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dockerimage.yml/badge.svg)](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dockerimage.yml)
 [![automerge](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dependabot.yml/badge.svg)](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dependabot.yml)
-[![build status](https://api.travis-ci.com/JamesKyburz/sandbox-debugger.svg)](https://travis-ci.com/JamesKyburz/sandbox-debugger)
-[![downloads](https://img.shields.io/npm/dm/sandbox-debugger.svg)](https://npmjs.org/package/sandbox-debugger)
+[![Docker Image CI](https://github.com/JamesKyburz/sandbox-debugger/workflows/Docker%20Image%20CI/badge.svg?branch=master)](https://github.com/JamesKyburz/sandbox-debugger/actions?query=workflow%3A%22Docker+Image+CI%22)
+[![downloads](https://img.shields.io/npm/dm/sandbox-debugger-server.svg)](https://npmjs.org/package/sandbox-debugger-server)
 [![Docker Pulls](https://img.shields.io/docker/pulls/jameskyburz/node-sandbox-debugger.svg)](https://hub.docker.com/r/jameskyburz/sandbox-debugger)
 
 Debug a [Node.js](https://nodejs.org) process anywhere using `chrome://inspect` or `node-inspect`
@@ -25,7 +25,6 @@ Supports a [Node.js](https://nodejs.org) process running
 - [x] on [AWS CodeBuild](https://aws.amazon.com/codebuild/)
 - [x] on [AWS Lambda](https://aws.amazon.com/lambda/)
 - [x] on [Heroku](https://www.heroku.com/)
-- [x] on [Runkit](https://npm.runkit.com/)
 - [x] anywhere that allows outbound internet traffic to port 80
 
 How it works?
