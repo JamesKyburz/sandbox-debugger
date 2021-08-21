@@ -28,8 +28,6 @@ updates:
     directory: "packages/client"
     schedule:
       interval: daily
-    ignore:
-      - dependency-name: "tempy"
     open-pull-requests-limit: 20
     labels:
       - dependencies

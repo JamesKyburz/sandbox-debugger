@@ -20,10 +20,6 @@
   },
   "devDependencies": {
     "@vercel/ncc": "0.29.2",
-    "delay": "5.0.0",
-    "node-fetch": "2.6.1",
-    "tempy": "1.0.1",
-    "touch": "3.1.0",
     "ws": "8.2.0"
   },
   "files": [
