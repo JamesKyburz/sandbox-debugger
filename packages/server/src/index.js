@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
+'use strict'
+
 const sessions = {}
 
-if (process.env.PORT === undefined) process.env.PORT = 9229
-if (process.env.LOG_PRETTY === undefined) process.env.LOG_PRETTY = true
-
 const WebSocket = require('ws')
-const serverBase = require('server-base')
 const os = require('os')
-const chalk = require('chalk')
-const boxen = require('boxen')
-const log = serverBase.log('sandbox-debugger/server')
+const http = require('http')
+
+const httpStatuses = Object.entries(http.STATUS_CODES)
+const httpStatus = text =>
+  Number(httpStatuses.find(([, value]) => value === text)[0])
 
 const freeSession = () => {
   const free = Object.keys(sessions).filter(x => !sessions[x].debug)
@@ -38,16 +38,26 @@ const getNetworkAddress = () => {
   }
 }
 
-const port = process.env.PORT || process.argv.slice(2)[0]
+const port = Number(process.env.PORT || process.argv.slice(2)[0] || 9229)
 
-const server = serverBase(require('../package.json').name, {
-  '@setup' (ctx) {
-    ctx.middlewareFunctions = []
-  },
-  '/session': {
-    async post (req, res) {
-      const { json, version } = await req.json({ log: true })
-      const replacePort = x => x.replace(/:9229/g, ':' + process.env.PORT)
+const server = new http.Server()
+
+server.on('request', async function onRequest (req, res) {
+  try {
+    if (req.url === '/ping') {
+      res.end()
+    } else if (req.url === '/session') {
+      if (req.method !== 'POST') {
+        res.writeHead(httpStatus('Method Not Allowed'))
+        res.end()
+        return
+      }
+      let data = ''
+      for await (const chunk of req) {
+        data += chunk.toString()
+      }
+      const { json, version } = JSON.parse(data)
+      const replacePort = x => x.replace(/:9229/g, ':' + port)
       json[0].devtoolsFrontendUrl = replacePort(json[0].devtoolsFrontendUrl)
       json[0].webSocketDebuggerUrl = replacePort(json[0].webSocketDebuggerUrl)
       const { id } = json[0]
@@ -55,57 +65,79 @@ const server = serverBase(require('../package.json').name, {
       if (debug) debug.close()
       if (session) session.close()
       sessions[id] = { json, version, debug: null, session: null, id }
+      console.log(JSON.stringify({ json, version }, null, 2))
       res.end()
-    }
-  },
-  '/json': {
-    get (req, res) {
+    } else if (req.url === '/json') {
+      if (req.method !== 'GET') {
+        res.writeHead(httpStatus('Method Not Allowed'))
+        res.end()
+        return
+      }
       const { json } = freeSession()
-      if (json) return res.json(json)
-      res.writeHead(404)
-      res.end()
-    }
-  },
-  '/json/version': {
-    get (req, res) {
+      if (json) {
+        res.writeHead(httpStatus('OK'), {
+          'Content-Type': 'application/json'
+        })
+        return res.end(JSON.stringify(json))
+      } else {
+        res.writeHead(httpStatus('Not Found'))
+        res.end()
+      }
+    } else if (req.url === '/json/version') {
+      if (req.method !== 'GET') {
+        res.writeHead(httpStatus('Method Not Allowed'))
+        res.end()
+        return
+      }
       const { version } = freeSession()
-      if (version) return res.json(version)
-      res.writeHead(404)
+      if (version) {
+        res.writeHead(httpStatus('OK'), {
+          'Content-Type': 'application/json'
+        })
+        return res.end(JSON.stringify(version))
+      } else {
+        res.writeHead(httpStatus('Not Found'))
+        res.end()
+      }
+    }
+  } catch (err) {
+    console.error(err)
+    if (!res.headersSent) {
+      res.writeHead(httpStatus('Internal Server Error'))
       res.end()
     }
   }
-}).start(port)
+})
 
-server.on('listening', () => {
+server.on('listening', function listening () {
   const ip = getNetworkAddress()
-  const port = process.env.PORT || 9229
-  const message = `${chalk.green('Debug server started!')}
-
-${chalk.bold('- To debug a new process:')}
-  export DEBUG_PROXY=${ip}:${port}
-  node index.js
-
-${chalk.bold('- To debug an existing process:')}
-  export DEBUG_PROXY=${ip}:${port}
-  export DEBUG_PID=<pid of node process>
-  npx sandbox-debugger
-
-${chalk.bold('- Find pid of first running Node.js process:')}
-  ps ax |
-  grep 'no[d]e ' |
-  awk '{print $1}' |
-  head -n 1
-
-${chalk.bold('- Allow remote access to me:')}
-  npx ngrok http ${port}`
-
-  console.log(
-    boxen(message, {
-      padding: 1,
-      borderColor: 'green',
-      margin: 1
-    })
-  )
+  const ipPort = `${ip}:${port}`.padEnd(20, ' ')
+  const ngrokPort = `${port}`.padEnd(4, ' ')
+  console.log(`
+\x1B[32m   ┌──────────────────────────────────────────────────┐
+\x1B[32m   │\x1B[0m                                                  \x1B[32m│
+\x1B[32m   │\x1B[0m   Debug server started!                          \x1B[32m│
+\x1B[32m   │\x1B[0m                                                  \x1B[32m│
+\x1B[32m   │\x1B[0m   - To debug a new process:                      \x1B[32m│
+\x1B[32m   │\x1B[0m     export DEBUG_PROXY=${ipPort}      \x1B[32m│
+\x1B[32m   │\x1B[0m     node index.js                                \x1B[32m│
+\x1B[32m   │\x1B[0m                                                  \x1B[32m│
+\x1B[32m   │\x1B[0m   - To debug an existing process:                \x1B[32m│
+\x1B[32m   │\x1B[0m     export DEBUG_PROXY=${ipPort}      \x1b[32m│
+\x1B[32m   │\x1B[0m     export DEBUG_PID=<pid of node process>       \x1B[32m│
+\x1B[32m   │\x1B[0m     npx sandbox-debugger                         \x1B[32m│
+\x1B[32m   │\x1B[0m                                                  \x1B[32m│
+\x1B[32m   │\x1B[0m   - Find pid of first running Node.js process:   \x1B[32m│
+\x1B[32m   │\x1B[0m     ps ax |                                      \x1B[32m│
+\x1B[32m   │\x1B[0m     grep 'no[d]e ' |                             \x1B[32m│
+\x1B[32m   │\x1B[0m     awk '{print $1}' |                           \x1B[32m│
+\x1B[32m   │\x1B[0m     head -n 1                                    \x1B[32m│
+\x1B[32m   │\x1B[0m                                                  \x1B[32m│
+\x1B[32m   │\x1B[0m   - Allow remote access to me:                   \x1B[32m│
+\x1B[32m   │\x1B[0m     npx ngrok http ${ngrokPort}                          \x1B[32m│
+\x1B[32m   │\x1B[0m                                                  \x1B[32m│
+\x1B[32m   └──────────────────────────────────────────────────┘
+\x1B[0m`)
 })
 
 const wss = new WebSocket.Server({ noServer: true })
@@ -117,16 +149,16 @@ server.on('upgrade', (req, socket, head) => {
 
       if (!session.id) {
         ws.close()
-        log.error("session couldn't be created")
+        console.error("session couldn't be created")
         return
       }
 
-      log.info('%s session created', session.id)
+      console.log('%s session created', session.id)
       session.session = ws
       session.session.send('debug!')
 
       session.session.once('close', () => {
-        log.info('%s session closed', session.id)
+        console.log('%s session closed', session.id)
         delete session.session
         if (session.debug) session.debug.close()
       })
@@ -134,13 +166,13 @@ server.on('upgrade', (req, socket, head) => {
       const session = freeDebug()
       if (!session.id) {
         ws.close()
-        log.error(
+        console.error(
           "debug could'nt be started, no free session available %j",
           sessions
         )
         return
       }
-      log.info('%s debug started', session.id)
+      console.log('%s debug started', session.id)
       session.debug = ws
       session.debug.on('message', message => {
         if (session.session) session.session.send(message.toString())
@@ -149,7 +181,7 @@ server.on('upgrade', (req, socket, head) => {
         if (session.debug) session.debug.send(message.toString())
       })
       session.debug.once('close', () => {
-        log.info('%s debug closed', session.id)
+        console.log('%s debug closed', session.id)
         delete session.debug
         if (session.session) session.session.close()
         delete sessions[session.id]
@@ -157,3 +189,5 @@ server.on('upgrade', (req, socket, head) => {
     }
   })
 })
+
+server.listen(port)
