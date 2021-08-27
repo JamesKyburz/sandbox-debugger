@@ -5,15 +5,11 @@
     "type": "git",
     "url": "git://github.com/jameskyburz/sandbox-debugger.git"
   },
-  "author": {
-    "name": "james kyburz",
-    "email": "james.kyburz@gmail.com"
-  },
+  "author": "james kyburz <james.kyburz@gmail.com>",
   "version": "0.2.44",
   "main": "src/index.js",
-  "bin": "src/index.js",
-  "scripts": {
-    "missing": "npx dependency-sync@latest"
+  "bin": {
+    "sandbox-debugger-server": "src/index.js"
   },
   "dependencies": {
     "ws": "8.2.0"
@@ -38,5 +34,13 @@
     "aws-codebuid",
     "heroku"
   ],
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jameskyburz/sandbox-debugger/issues"
+  },
+  "homepage": "https://github.com/jameskyburz/sandbox-debugger#readme",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

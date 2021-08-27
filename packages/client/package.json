@@ -5,15 +5,13 @@
     "type": "git",
     "url": "git://github.com/jameskyburz/sandbox-debugger.git"
   },
-  "author": {
-    "name": "james kyburz",
-    "email": "james.kyburz@gmail.com"
-  },
+  "author": "james kyburz <james.kyburz@gmail.com>",
   "version": "0.2.44",
   "main": "dist/index.js",
-  "bin": "dist/index.js",
+  "bin": {
+    "sandbox-debugger": "dist/index.js"
+  },
   "scripts": {
-    "missing": "npx dependency-sync@latest",
     "build": "npx @vercel/ncc build -m src/index.js",
     "prepublishOnly": "npm run build",
     "postpublish": "rm -rf dist"
@@ -42,5 +40,10 @@
     "aws-codebuid",
     "heroku"
   ],
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jameskyburz/sandbox-debugger/issues"
+  },
+  "homepage": "https://github.com/jameskyburz/sandbox-debugger#readme",
+  "dependencies": {}
 }
