@@ -56,15 +56,29 @@ server.on('request', async function onRequest (req, res) {
       for await (const chunk of req) {
         data += chunk.toString()
       }
-      const { json, version } = JSON.parse(data)
-      const replacePort = x => x.replace(/:9229/g, ':' + port)
-      json[0].devtoolsFrontendUrl = replacePort(json[0].devtoolsFrontendUrl)
-      json[0].webSocketDebuggerUrl = replacePort(json[0].webSocketDebuggerUrl)
-      const { id } = json[0]
+      const {
+        json: [json],
+        version
+      } = JSON.parse(data)
+      const { id } = json
+
+      const replacePort = x => x.replace(/localhost:9229/g, `localhost:${port}`)
+      json.devtoolsFrontendUrl = replacePort(json.devtoolsFrontendUrl)
+      json.devtoolsFrontendUrlCompat = replacePort(
+        json.devtoolsFrontendUrlCompat
+      )
+      json.title = `${json.title} (sandbox-debugger:${port})`
+      json.webSocketDebuggerUrl = replacePort(json.webSocketDebuggerUrl)
       const { debug, session } = sessions[id] || {}
       if (debug) debug.close()
       if (session) session.close()
-      sessions[id] = { json, version, debug: null, session: null, id }
+      sessions[id] = {
+        json: [json],
+        version,
+        debug: null,
+        session: null,
+        id
+      }
       console.log(JSON.stringify({ json, version }, null, 2))
       res.end()
     } else if (req.url === '/json') {
@@ -75,10 +89,13 @@ server.on('request', async function onRequest (req, res) {
       }
       const { json } = freeSession()
       if (json) {
+        const body = JSON.stringify(json, null, 2)
         res.writeHead(httpStatus('OK'), {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-cache',
+          'Content-Length': body.length
         })
-        return res.end(JSON.stringify(json))
+        res.end(body)
       } else {
         res.writeHead(httpStatus('Not Found'))
         res.end()
@@ -91,14 +108,20 @@ server.on('request', async function onRequest (req, res) {
       }
       const { version } = freeSession()
       if (version) {
+        const body = JSON.stringify(version, null, 2)
         res.writeHead(httpStatus('OK'), {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Cache-Control': 'no-cache',
+          'Content-Length': body.length
         })
-        return res.end(JSON.stringify(version))
+        res.end(body)
       } else {
         res.writeHead(httpStatus('Not Found'))
         res.end()
       }
+    } else {
+      res.writeHead(httpStatus('Not Found'))
+      res.end()
     }
   } catch (err) {
     console.error(err)
