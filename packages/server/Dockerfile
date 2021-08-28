@@ -12,7 +12,7 @@ RUN npm i
 
 COPY . .
 
-ENTRYPOINT ["node", "src/index"]
+ENTRYPOINT ["node", "--unhandled-rejections=strict", "src/index.js"]
 CMD []
 
 EXPOSE 9229

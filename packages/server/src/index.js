@@ -2,41 +2,23 @@
 
 'use strict'
 
-const sessions = {}
-
 const WebSocket = require('ws')
 const os = require('os')
 const http = require('http')
 
-const httpStatuses = Object.entries(http.STATUS_CODES)
-const httpStatus = text =>
-  Number(httpStatuses.find(([, value]) => value === text)[0])
+const sessions = {}
 
-const freeSession = () => {
-  const free = Object.keys(sessions).filter(x => !sessions[x].debug)
-  if (!free.length) return {}
-  return sessions[free[0]]
-}
+const freeSession = () =>
+  Object.values(sessions).find(value => !value.debug) || {}
 
-const freeDebug = () => {
-  const free = Object.keys(sessions).filter(
-    x => !sessions[x].debug && sessions[x].session
-  )
-  if (!free.length) return {}
-  return sessions[free[0]]
-}
+const freeDebug = () =>
+  Object.values(sessions).find(value => !value.debug && value.session) || {}
 
-const getNetworkAddress = () => {
-  const networkInterfaces = os.networkInterfaces()
-  for (const name of Object.keys(networkInterfaces)) {
-    for (const networkInterface of networkInterfaces[name]) {
-      const { address, family, internal } = networkInterface
-      if (family === 'IPv4' && !internal) {
-        return address
-      }
-    }
-  }
-}
+const getNetworkAddress = () =>
+  Object.values(os.networkInterfaces())
+    .flat()
+    .find(({ address, family, internal }) => family === 'IPv4' && !internal)
+    .address
 
 const port = Number(process.env.PORT || process.argv.slice(2)[0] || 9229)
 
@@ -48,7 +30,7 @@ server.on('request', async function onRequest (req, res) {
       res.end()
     } else if (req.url === '/session') {
       if (req.method !== 'POST') {
-        res.writeHead(httpStatus('Method Not Allowed'))
+        res.writeHead(405)
         res.end()
         return
       }
@@ -83,56 +65,57 @@ server.on('request', async function onRequest (req, res) {
       res.end()
     } else if (req.url === '/json') {
       if (req.method !== 'GET') {
-        res.writeHead(httpStatus('Method Not Allowed'))
+        res.writeHead(405)
         res.end()
         return
       }
       const { json } = freeSession()
       if (json) {
         const body = JSON.stringify(json, null, 2)
-        res.writeHead(httpStatus('OK'), {
+        res.writeHead(200, {
           'Content-Type': 'application/json; charset=UTF-8',
           'Cache-Control': 'no-cache',
           'Content-Length': body.length
         })
         res.end(body)
       } else {
-        res.writeHead(httpStatus('Not Found'))
+        res.writeHead(404)
         res.end()
       }
     } else if (req.url === '/json/version') {
       if (req.method !== 'GET') {
-        res.writeHead(httpStatus('Method Not Allowed'))
+        res.writeHead(405)
         res.end()
         return
       }
       const { version } = freeSession()
       if (version) {
         const body = JSON.stringify(version, null, 2)
-        res.writeHead(httpStatus('OK'), {
+        res.writeHead(200, {
           'Content-Type': 'application/json; charset=UTF-8',
           'Cache-Control': 'no-cache',
           'Content-Length': body.length
         })
         res.end(body)
       } else {
-        res.writeHead(httpStatus('Not Found'))
+        res.writeHead(404)
         res.end()
       }
     } else {
-      res.writeHead(httpStatus('Not Found'))
+      res.writeHead(404)
       res.end()
     }
   } catch (err) {
     console.error(err)
     if (!res.headersSent) {
-      res.writeHead(httpStatus('Internal Server Error'))
+      res.writeHead(500)
       res.end()
     }
   }
 })
 
 server.on('listening', function listening () {
+  const { port } = server.address()
   const ip = getNetworkAddress()
   const ipPort = `${ip}:${port}`.padEnd(20, ' ')
   const ngrokPort = `${port}`.padEnd(4, ' ')
@@ -197,12 +180,14 @@ server.on('upgrade', (req, socket, head) => {
       }
       console.log('%s debug started', session.id)
       session.debug = ws
-      session.debug.on('message', message => {
-        if (session.session) session.session.send(message.toString())
-      })
-      session.session.on('message', message => {
-        if (session.debug) session.debug.send(message.toString())
-      })
+      session.debug.on(
+        'message',
+        message => session.session && session.session.send(message.toString())
+      )
+      session.session.on(
+        'message',
+        message => session.debug && session.debug.send(message.toString())
+      )
       session.debug.once('close', () => {
         console.log('%s debug closed', session.id)
         delete session.debug
