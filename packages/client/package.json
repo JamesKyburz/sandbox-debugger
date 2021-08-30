@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@vercel/ncc": "0.29.2",
-    "ws": "8.2.0"
+    "ws": "8.2.1"
   },
   "files": [
     "dist"
