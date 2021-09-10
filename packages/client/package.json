@@ -19,7 +19,7 @@
     "postpublish": "rm -rf dist"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.30.0",
+    "@vercel/ncc": "0.31.0",
     "ws": "8.2.2"
   },
   "files": [
