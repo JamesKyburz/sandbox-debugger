@@ -16,7 +16,7 @@
     "missing": "npx dependency-sync@latest"
   },
   "dependencies": {
-    "boxen": "5.1.1",
+    "boxen": "5.1.2",
     "chalk": "4.1.2",
     "server-base": "7.1.29",
     "ws": "8.2.2"
