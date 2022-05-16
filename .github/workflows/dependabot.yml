@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
       - name: test build server image
         run: docker build ./packages/server --file ./packages/server/Dockerfile --tag sandbox-debugger
-      - uses: actions/setup-node@v3.1.1
+      - uses: actions/setup-node@v3.2.0
         with:
           node-version: "14"
       - name: run tests
