@@ -10,7 +10,7 @@
     "sandbox-debugger": "file://../packages/client",
     "sandbox-debugger-server": "file://../packages/server",
     "tap": "16.2.0",
-    "ws": "8.6.0"
+    "ws": "8.7.0"
   },
   "private": true
 }
