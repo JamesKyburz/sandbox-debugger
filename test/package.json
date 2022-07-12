@@ -6,7 +6,7 @@
     "posttest": "rm -rf ../packages/client/dist"
   },
   "devDependencies": {
-    "node-fetch": "2.6.7",
+    "node-fetch": "3.2.7",
     "sandbox-debugger": "file://../packages/client",
     "sandbox-debugger-server": "file://../packages/server",
     "tap": "16.2.0",
