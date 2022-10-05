@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "boxen": "5.1.2",
-    "chalk": "4.1.2",
+    "chalk": "5.1.0",
     "server-base": "7.1.32",
     "ws": "8.8.0"
   },
