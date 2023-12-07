@@ -112,8 +112,14 @@ Environment variable `DEBUG_PROXY` needs to point to the `ngrok` address includi
 
 The easiest way to debug lambda is to edit the code in aws console.
 
-* Copy the contents of `https://unpkg.com/sandbox-debugger@latest/dist/index.js` to debug.js
-* `require('./debug.cjs')` instead of `sandbox-debugger`
+Copy the contents of `https://unpkg.com/sandbox-debugger@latest/dist/index.js` to debug.js, and `require('./debug.cjs')` instead of `sandbox-debugger`
+
+ESM example
+```js
+  import { createRequire } from 'node:module'
+  const require = createRequire(import.meta.url)
+  require('./debug.cjs')
+```
 
 # license
 
