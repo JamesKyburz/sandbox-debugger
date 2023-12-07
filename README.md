@@ -1,11 +1,6 @@
 # sandbox-debugger
 
 [![js-standard-style](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/feross/standard)
-[![ci](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dockerimage.yml/badge.svg)](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dockerimage.yml)
-[![automerge](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dependabot.yml/badge.svg)](https://github.com/JamesKyburz/sandbox-debugger/actions/workflows/dependabot.yml)
-[![Docker Image CI](https://github.com/JamesKyburz/sandbox-debugger/workflows/Docker%20Image%20CI/badge.svg?branch=master)](https://github.com/JamesKyburz/sandbox-debugger/actions?query=workflow%3A%22Docker+Image+CI%22)
-[![downloads](https://img.shields.io/npm/dm/sandbox-debugger-server.svg)](https://npmjs.org/package/sandbox-debugger-server)
-[![Docker Pulls](https://img.shields.io/docker/pulls/jameskyburz/node-sandbox-debugger.svg)](https://hub.docker.com/r/jameskyburz/sandbox-debugger)
 
 Debug a [Node.js](https://nodejs.org) process anywhere using `chrome://inspect` or `node-inspect`
 
@@ -72,7 +67,7 @@ The server will output
       head -n 1
 
     - Allow remote access to me:              
-      npx ngrok http 9229                      
+      npx ngrok http 9229 --scheme http
 ```
 
 ## Create a tunnel to our sandbox server process
@@ -80,7 +75,7 @@ The server will output
 Using [ngrok](https://npm.im/ngrok) you can tunnel to the locally running broker from for example aws lambda.
 
 ```sh
-npx ngrok http 9229
+npx ngrok http 9229 --scheme http
 ```
 
 # Client 
@@ -118,11 +113,7 @@ Environment variable `DEBUG_PROXY` needs to point to the `ngrok` address includi
 The easiest way to debug lambda is to edit the code in aws console.
 
 * Copy the contents of `https://unpkg.com/sandbox-debugger@latest/dist/index.js` to debug.js
-* `require('./debug.js')` instead of `sandbox-debugger`
-
-or
-
-Use a [lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) containing the `sandbox-debugger`, you can publish your own for node 12 [here](https://github.com/JamesKyburz/aws-lambda-layers/blob/master/node/12.x/sandbox-debugger/publish.sh) and also node 10 [here](https://github.com/JamesKyburz/aws-lambda-layers/blob/master/node/10.x/sandbox-debugger/publish.sh).
+* `require('./debug.cjs')` instead of `sandbox-debugger`
 
 # license
 
