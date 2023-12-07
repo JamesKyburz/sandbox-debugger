@@ -66,6 +66,14 @@ const server = serverBase(require('../package.json').name, {
       res.end()
     }
   },
+  '/json/list*': {
+    get (req, res) {
+      const { json } = freeSession()
+      if (json) return res.json(json)
+      res.writeHead(404)
+      res.end()
+    }
+  },
   '/json/version': {
     get (req, res) {
       const { version } = freeSession()
@@ -97,7 +105,7 @@ ${chalk.bold('- Find pid of first running Node.js process:')}
   head -n 1
 
 ${chalk.bold('- Allow remote access to me:')}
-  npx ngrok http ${port}`
+  npx ngrok http ${port} --scheme http`
 
   console.log(
     boxen(message, {
